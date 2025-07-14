@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.10.0-slim
 
 LABEL maintainer="bku089@gmail.com"
 
@@ -7,6 +7,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 COPY app/ ./app/
+COPY app/main.py .
 
 RUN pip install --no-cache-dir -r requirements.txt
 

@@ -2,29 +2,39 @@ import os
 import requests
 
 
+URL = "http://api.weatherapi.com/v1/current.json"
+CITY = "Paris"
+
 def get_weather() -> None:
     api_key = os.getenv("API_KEY")
+
     if not api_key:
-        print("Error: API_KEY environment variable is not set")
+        print("Ошибка: переменная окружения API_KEY не установлена.")
         return
 
-    city = "Paris"
-    url = (
-        f"http: //api.openweathermap.org/data/2.5/weather?"
-        f"q={city}&appid={api_key}&units=metric&lang=ru"
-    )
+    # параметры запроса
+    params = {
+        "key": api_key,
+        "q": CITY,
+        "aqi": "no"
+    }
 
     try:
-        response = requests.get(url)
+        response = requests.get(URL, params=params)
         response.raise_for_status()
         data = response.json()
 
-        temp = data["main"]["temp"]
-        description = data["weather"][0]["description"]
-        print(f"Weather in {city}: {description}, Temperature {temp}°C")
+        temp_c = data["current"]["temp_c"]
+        condition = data["current"]["condition"]["text"]
 
-    except requests.exceptions.RequestException as e:
-        print(f"Error getting weather: {e}")
+        print(f"Current weather in {CITY}:")
+        print(f"Temperature: {temp_c}°C")
+        print(f"Condition: {condition}")
+
+    except requests.exceptions.HTTPError as r_e:
+        print(f"HTTP Error: {r_e}")
+    except Exception as e:
+        print(f"Common error: {e}")
 
 
 if __name__ == "__main__":
