@@ -9,7 +9,10 @@ def get_weather() -> None:
         return
 
     city = "Paris"
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric&lang=ru"
+    url = (
+        f"http: //api.openweathermap.org/data/2.5/weather?"
+        f"q={city}&appid={api_key}&units=metric&lang=ru"
+    )
 
     try:
         response = requests.get(url)
