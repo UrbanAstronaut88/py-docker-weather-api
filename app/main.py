@@ -35,7 +35,7 @@ def get_weather() -> None:
     except requests.exceptions.HTTPError as r_e:
         print(f"HTTP Error: {r_e}")
     except Exception as e:
-        print(f"Common error: {e}")
+        print(f"Common Error: {e}")
 
 
 if __name__ == "__main__":
